@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createEditCabin } from "../../services/apiCabins";
 import { useForm } from "react-hook-form";
-import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import Input from "../../ui/Input";
