@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { cloneElement, createContext, useContext, useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import useOutsideClick from "../hooks/useOutsideClick";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -73,12 +74,14 @@ function Open({ children, opens: opensWindowName }) {
 
 function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
+  const ref = useOutsideClick(close);
+
   if (name !== openName) return null;
 
   return createPortal(
     <Overlay>
       <div>
-        <StyledModal>
+        <StyledModal ref={ref}>
           <Button onClick={close}>
             <HiXMark />
           </Button>
@@ -94,7 +97,7 @@ Modal.Open = Open;
 Modal.Window = Window;
 
 Window.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.object,
   onClose: PropTypes.func,
   name: PropTypes.string.isRequired,
 };
